@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 const { connect, model } = mongoose;
 
 // Connect to MongoDB
-connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+connect('mongodb+srv://Souvik:Zstar246@cluster0.pqchhcz.mongodb.net/user_data', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
 
@@ -17,21 +17,20 @@ const User = model('User', {
     password: String,
 });
 
-export default async function handler(req, res) {
-    if (req.method === 'POST') {
+export async function POST(request, res) {
         try {
-            const { email, password } = req.body;
-
+            const { email, password } = request.json();
+            console.log(email);
             // Find user by email
             const user = await User.findOne({ email });
             if (!user) {
-                return res.status(401).json({ message: 'Invalid email or password' });
+                return new Response("Invalid user",{status: 401})
             }
 
             // Compare passwords
             const passwordMatch = await bcrypt.compare(password, user.password);
             if (!passwordMatch) {
-                return res.status(401).json({ message: 'Invalid email or password' });
+              return new Response("Invalid user or password",{status: 401})
             }
 
             // Create and send JWT token
@@ -39,9 +38,7 @@ export default async function handler(req, res) {
             res.json({ token });
         } catch (error) {
             console.error(error);
-            res.status(500).json({ message: 'Server Error' });
+            return new Response("Server error",{status: 501})
         }
-    } else {
-        res.status(405).end(); // Method Not Allowed
     }
-}
+

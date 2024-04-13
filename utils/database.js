@@ -2,7 +2,7 @@
 
 import mongoose from 'mongoose';
 
-const MONGODB_URI = 'mongodb+srv://Souvik:Zstar246@cluster0.pqchhcz.mongodb.net/user_login';
+// const MONGODB_URI = 'mongodb+srv://Souvik:Zstar246@cluster0.pqchhcz.mongodb.net/user_login';
 let isConnected=false
 async function connectDB() {
     mongoose.set('strictQuery',true)
@@ -11,7 +11,7 @@ async function connectDB() {
         console.log("MongoDb is Already connected")
     }
   try {
-    await mongoose.connect(MONGODB_URI, {
+    await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
