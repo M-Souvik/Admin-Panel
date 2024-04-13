@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-
+import Image from 'next/image'
 const ViewUser = () => {
   return (
     <div className="popup-container fade-in fade-out">

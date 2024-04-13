@@ -17,7 +17,7 @@ const UserTable = ({data}) => {
             <td className="border-none px-2 py-2">{data.email}</td>
             <td className=" flex border-none px-2 py-2 gap-3">
               <button onClick={handleView} >
-                <Image src="/view.png" width={30} height={30}/>
+                <Image src="/view.png" width={30} height={30} alt=''/>
                 </button>
               <button onClick={handleDelete}>
               <Image src="/delete.png" width={30} height={30}/>
